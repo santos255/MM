@@ -1,5 +1,5 @@
 <?php
-require_once 'conexao.php';
+require_once "../bd/conn.php";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nome = $_POST['nome'];
@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $senha = password_hash($_POST['senha'], PASSWORD_DEFAULT);
 
     // Verifica se o email já está cadastrado
-    $stmt = $conn->prepare("SELECT * FROM usuarios WHERE email = :email");
+    $stmt = $conn->prepare("SELECT * FROM usuarios WHERE email_usuario  = :email");
     $stmt->bindParam(':email', $email);
     $stmt->execute();
 
@@ -15,13 +15,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "Este email já está cadastrado.";
     } else {
         // Insere o usuário no banco
-        $stmt = $conn->prepare("INSERT INTO usuarios (nome, email, senha) VALUES (:nome, :email, :senha)");
+        $stmt = $conn->prepare("INSERT INTO usuarios (nome_usuario, email_usuario , senha_usuario) VALUES (:nome, :email, :senha)");
         $stmt->bindParam(':nome', $nome);
         $stmt->bindParam(':email', $email);
         $stmt->bindParam(':senha', $senha);
         $stmt->execute();
 
-        echo "Cadastro realizado com sucesso!";
+        echo "Sing in successfully!";
+
     }
 }
 ?>
+<br>
+<a href="../index.php">Back to Login</a>

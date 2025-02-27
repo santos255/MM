@@ -13,7 +13,7 @@
 
 <div class="container mt-5">
     <h2 class="text-center">Cadastro de Usuário</h2>
-    <form action="cadastro_processar.php" method="POST">
+    <form action="sys/cadastro_processar.php" method="POST">
         <div class="mb-3">
             <label for="nome" class="form-label">Nome</label>
             <input type="text" class="form-control" id="nome" name="nome" required>
