@@ -7,6 +7,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+    <div class="container">
+        <a href="index.php">Back</a>
+    </div>
 
 <div class="container mt-5">
     <h2 class="text-center">Cadastro de Usuário</h2>
@@ -26,6 +29,7 @@
         <button type="submit" class="btn btn-primary">Cadastrar</button>
     </form>
 </div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>

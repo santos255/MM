@@ -10,7 +10,7 @@
 
 <div class="container mt-5">
     <h2 class="text-center">Login</h2>
-    <form action="login_processar.php" method="POST">
+    <form action="pages/ login_processar.php" method="POST">
         <div class="mb-3">
             <label for="email" class="form-label">Email</label>
             <input type="email" class="form-control" id="email" name="email" required>
@@ -21,6 +21,12 @@
         </div>
         <button type="submit" class="btn btn-primary">Entrar</button>
     </form>
+   
+</div>
+<div class="container">
+<a href="cadastro.php">Inscrive</a>
+&nbsp;
+<a href="#">Mot de passe oublié</a>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
