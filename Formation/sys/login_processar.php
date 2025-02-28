@@ -15,12 +15,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($usuario  && password_verify($senha, $usuario['senha_usuario'])) {
         // Login bem-sucedido
         $_SESSION['usuario_id'] = $usuario['id_usuario'];
-        $_SESSION['usuario_nome'] = $usuario['id_usuario'];
+        $_SESSION['usuario_nome'] = $usuario['nome_usuario'];
         if($usuario['stat'] == 1){
             header('Location: ../pages/administration/dashboard.php');
             
         }
-        elseif($usuario['stat'] == 2){
+        elseif($usuario['stat'] == 2){         
             header('Location: ../pages/noAuth/dashboard.php');
         }
         else{
