@@ -1,0 +1,110 @@
+<?php
+    include '../../bd/conn.php';
+
+    // Buscar usuários
+    $stmt = $conn->query("SELECT * FROM operator");
+    $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    ?>
+<div class="conteiner">
+   
+
+    <h2>Gerenciamento de Usuários</h2>    
+    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">ADD Operator</button>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Formation</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($users as $user): ?>
+                <tr>
+                    
+                    <td> <?= htmlspecialchars($user['name_operator']) ?> </td>
+                    <td> <?= htmlspecialchars($user['lastname_operator']) ?> </td>
+                    <td> <?= htmlspecialchars($user['email_operator']) ?> </td>
+                    <td> <a href="hpedit.p?id=<?= $user['id_operator'] ?>" class="btn btn-info btn-sm">Formation</a> </td>
+                    <td>
+                        
+                        <a href="function.php?id=<?= $user['id_operator'] ?>&act=edit" class="btn btn-primary btn-sm">Edit</a>
+
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop_edite">ADD Operator</button>
+                        <a href="function.php?id=<?= $user['id_operator'] ?>&act=del" class="btn btn-danger btn-sm" onclick="return confirm('Eliminate the Operator ?')">Excluir</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+
+    
+
+
+<!-- Modal para adicionar Operadpor -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Add New Operator</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="function.php?act=creat">
+                           <div class="mb-3">
+                                <label>Nome</label>
+                                <input type="text" name="nome" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label>Last Nome</label>
+                                <input type="text" name="lnome" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label>Email</label>
+                                <input type="email" name="email" class="form-control" required>
+                            </div>
+                            
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Add</button>
+                    </form>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+
+<!-- Modal para Editar Operadpor -->
+<div class="modal fade" id="staticBackdrop_edite" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdrop_edite" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdrop_edite">Add New Operator</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="function.php?act=edite">
+                           <div class="mb-3">
+                                <label>Nome-edit</label>
+                                <input type="text" name="nome" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label>Last Nome</label>
+                                <input type="text" name="lnome" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label>Email</label>
+                                <input type="email" name="email" class="form-control" required>
+                            </div>
+                            
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Add</button>
+                    </form>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+
+</div>

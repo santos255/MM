@@ -1,9 +1,11 @@
 <?php
+include_once'../../bd/conn.php';
 session_start();
 if (!isset($_SESSION['usuario_id'])) {
     header('Location: login.php');
     exit;
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -34,32 +36,49 @@ if (!isset($_SESSION['usuario_id'])) {
     <!-- Navbar Bootstrap -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Meu Site</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <a class="navbar-brand" href="#" onclick="carregarPagina('home.php')"><img src="../../img/logo.png" alt="" srcset=""><?php echo(" ".$_SESSION['usuario_nome']) ?></a>
+            
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="carregarPagina('home.php')">Início</a>
+                        <a class="nav-link" href="#" onclick="carregarPagina('home.php')">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="carregarPagina('sobre.html')">Sobre</a>
+                        <a class="nav-link" href="#" onclick="carregarPagina('formation.php')">Formation</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="carregarPagina('servicos.html')">Serviços</a>
+                        <a class="nav-link" href="#" onclick="carregarPagina('operador.php')">Employers</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="carregarPagina('contato.html')">Contato</a>
+                        <a class="nav-link" href="#" onclick="carregarPagina('estatistique.php')">Statistique</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="carregarPagina('aboutPortal.php')">About the portal</a>
+                    </li>
+                    <li class="nav-item">
+                    <a href="../../logout.php" class="btn ">Sair</a>
+                        
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
+    <?php
+   
+   if (isset($_GET['pag'])) {
+    $pag = $_GET['pag']; // Definindo a variável $pag
+    echo "<script>carregarPagina('$pag')</script>";
+} else {
+    echo "<script>carregarPagina('home.php')</script>";
+}
+   
+    
+    
+    ?>
 
     <!-- Div onde a página será carregada -->
     <div id="conteudo" class="mt-4 p-4 bg-light border rounded">
-        <h3>Bem-vindo!</h3>
+        <?php include 'home.php'; ?>
         
     </div>
 </div>
