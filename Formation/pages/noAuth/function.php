@@ -52,29 +52,63 @@ if ($variavel == 'creat') {
     exit;
 } elseif ($variavel == 'edit') {
     $id = $_GET['id'];
+
     $stmt = $conn->prepare("SELECT * FROM operator WHERE id_operator = ?");
     $stmt->execute([$id]);
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
-?>
-    <div class="conteiner">
-        <h2>Editar Operador</h2>
-        <form method="POST" action="function.php?act=update">
-            <input type="hidden" name="id" value="<?= $user['id_operator'] ?>">
-            <div class="mb-3">
-                <label>Nome</label>
-                <input type="text" name="nome" class="form-control" value="<?= $user['name_operator'] ?>" required>
-            </div>
-            <div class="mb-3">
-                <label>Last Nome</label>
-                <input type="text" name="lnome" class="form-control" value="<?= $user['lastname_operator'] ?>" required>
-            </div>
-            <div class="mb-3">
-                <label>Email</label>
-                <input type="email" name="email" class="form-control" value="<?= $user['email_operator'] ?>" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Salvar</button>
-        </form>
-    </div>
-<?php
+    $operator = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $name = $_POST['name'];
+        $lname = $_POST['lname'];
+        $status = $_POST['status'];
+        $email = $_POST['email'];
+
+        $stmt = $conn->prepare("UPDATE operator SET name_operator = ?, lastname_operator = ?, email_operator = ?, status_operator = ? WHERE id_operator = ?");
+        $stmt->execute([$name,$lname, $email,$status,$id]);
+
+        echo "<script>
+                 alert('Operator Edited successfully!');
+                 window.location.href = 'dashboard.php?pag=operador.php';
+                </script>";
+            exit;
+    }
 }
+
 ?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Usuário</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="container mt-4">
+
+    <h2>Editar Usuário</h2>
+    <form method="POST">
+        <div class="mb-3">
+            <label>Name</label>
+            <input type="text" name="name" class="form-control" value="<?= htmlspecialchars($operator['name_operator']) ?>" required>
+        </div>
+        <div class="mb-3">
+            <label>Last Nome</label>
+            <input type="text" name="lname" class="form-control" value="<?= htmlspecialchars($operator['lastname_operator']) ?>" required>
+        </div>
+        <div class="mb-3">
+            <label>Email</label>
+            <input type="email" name="email" class="form-control" value="<?= htmlspecialchars($operator['email_operator']) ?>" required>
+        </div>
+        <div class="mb-3">
+            <label>Status</label>            
+            <div>
+                <input type="radio" id="Act" name="status" value="1" <?php if ($operator['status_operator'] == 1) echo 'checked'; ?>> Active
+                &nbsp;
+                <input type="radio" id="Des" name="status" value="0" <?php if ($operator['status_operator'] == 0) echo 'checked'; ?>> Desactive
+            </div>          
+            
+        </div>
+        <button type="submit" class="btn btn-primary">Atualizar</button>
+        <a href="dashboard.php?pag=operador.php" class="btn btn-secondary">Voltar</a>
+    </form>
