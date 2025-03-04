@@ -66,11 +66,7 @@ if (!isset($_SESSION['usuario_id'])) {
             </div>
             
         </nav>
-        <div class="container mt-2">
-            <?php
-            include_once 'search2.php';
-            ?>
-        </div>
+       
 
        
         <?php
