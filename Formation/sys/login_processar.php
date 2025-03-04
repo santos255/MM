@@ -16,14 +16,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Login bem-sucedido
         $_SESSION['usuario_id'] = $usuario['id_usuario'];
         $_SESSION['usuario_nome'] = $usuario['nome_usuario'];
-        if($usuario['stat'] == 1){
+        if($usuario['role'] == 1){//admin
             header('Location: ../pages/administration/dashboard.php');
             
         }
-        elseif($usuario['stat'] == 2){         
+        elseif($usuario['role'] == 2){ //user      
             header('Location: ../pages/noAuth/dashboard.php');
         }
-        else{
+        else{//== 0 nao ativo
        
         header('Location: ../pages/dashboard.php');
         }
