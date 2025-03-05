@@ -2,12 +2,10 @@
 include '../../bd/conn.php';
 
 // Buscar usuários
-$stmt = $conn->query("SELECT * FROM operator WHERE status_operator = 1");
+$stmt = $conn->query("SELECT * FROM operator WHERE status_operator = 1");//1 actife - 2 Desactif
 $operators = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <div class="conteiner">
-
-
     <h2>Manage Operator</h2>
     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">ADD </button>
     
@@ -33,12 +31,22 @@ $operators = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <td>
 
                         <a href="function.php?id=<?= $operator['id_operator'] ?>&act=edit" class="btn btn-primary btn-sm">Edit</a>                        
-                        <a href="function.php?id=<?= $operator['id_operator'] ?>&act=del" class="btn btn-danger btn-sm" onclick="return confirm('Eliminate the Operator ?')">Excluir</a>
+                        <a href="function.php?id=<?= $operator['id_operator'] ?>&act=del" class="btn btn-danger btn-sm" onclick="return confirm('Eliminate the Operator ?')">Delete</a>
                     </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
+        
     </table>
+    
+    <div class="d-flex">    
+        <div class="ms-auto text-white p-3 bg"> 
+            <a href="desactiOperator.php">Desctivated</a>
+        </div>    
+       
+    </div>
+
+    
 
 
 

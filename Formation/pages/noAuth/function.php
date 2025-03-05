@@ -62,6 +62,7 @@ if ($variavel == 'creat') {
         $lname = $_POST['lname'];
         $status = $_POST['status'];
         $email = $_POST['email'];
+        echo $status;
 
         $stmt = $conn->prepare("UPDATE operator SET name_operator = ?, lastname_operator = ?, email_operator = ?, status_operator = ? WHERE id_operator = ?");
         $stmt->execute([$name,$lname, $email,$status,$id]);
@@ -72,6 +73,15 @@ if ($variavel == 'creat') {
                 </script>";
             exit;
     }
+}elseif ($variavel == 'des') {
+    $id = $_GET['id'];
+    $stmt = $conn->prepare("UPDATE operator SET status_operator = 2 WHERE id_operator = ?");
+    $stmt->execute([$id]);
+    echo "<script>
+                  alert('Operator desactivated successfully!');
+                  window.location.href = 'dashboard.php?pag=operador.php';
+                 </script>";
+    exit;
 }
 
 ?>
@@ -105,7 +115,7 @@ if ($variavel == 'creat') {
             <div>
                 <input type="radio" id="Act" name="status" value="1" <?php if ($operator['status_operator'] == 1) echo 'checked'; ?>> Active
                 &nbsp;
-                <input type="radio" id="Des" name="status" value="0" <?php if ($operator['status_operator'] == 0) echo 'checked'; ?>> Desactive
+                <input type="radio" id="Des" name="status" value="2" <?php if ($operator['status_operator'] == 2) echo 'checked'; ?>> Desactive
             </div>          
             
         </div>

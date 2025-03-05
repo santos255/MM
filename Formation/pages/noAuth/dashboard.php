@@ -58,7 +58,7 @@ if (!isset($_SESSION['usuario_id'])) {
                             <a class="nav-link" href="#" onclick="carregarPagina('aboutPortal.php')">About the portal</a>
                         </li>
                         <li class="nav-item">
-                            <a href="../../logout.php" class="btn ">Sair</a>
+                            <a href="../../logout.php" class="btn ">Log Out</a>
 
                         </li>
                     </ul>

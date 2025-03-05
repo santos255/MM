@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 05, 2025 at 01:37 PM
+-- Generation Time: Mar 05, 2025 at 04:02 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -40,7 +40,8 @@ CREATE TABLE `operator` (
 --
 
 INSERT INTO `operator` (`id_operator`, `name_operator`, `lastname_operator`, `email_operator`, `status_operator`) VALUES
-(1, 'Op1', 'Op1Ss', 'op1s@mm.com', 1);
+(1, 'Op1', 'Op1Ss', 'op1s@mm.com', 1),
+(2, 'Op2', 'Op2S', 'op2@mm.com', 2);
 
 -- --------------------------------------------------------
 
@@ -141,7 +142,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT for table `operator`
 --
 ALTER TABLE `operator`
-  MODIFY `id_operator` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_operator` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `role`
