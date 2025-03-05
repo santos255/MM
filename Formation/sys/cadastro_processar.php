@@ -5,6 +5,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nome = $_POST['nome'];
     $email = $_POST['email'];
     $senha = password_hash($_POST['senha'], PASSWORD_DEFAULT);
+    $role = 3;// user_view
 
     // Verifica se o email já está cadastrado
     $stmt = $conn->prepare("SELECT * FROM usuarios WHERE email_usuario  = :email");
@@ -15,13 +16,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "Este email já está cadastrado.";
     } else {
         // Insere o usuário no banco
-        $stmt = $conn->prepare("INSERT INTO usuarios (nome_usuario, email_usuario , senha_usuario) VALUES (:nome, :email, :senha)");
+        $stmt = $conn->prepare("INSERT INTO usuarios (nome_usuario, email_usuario , senha_usuario, role) VALUES (:nome, :email, :senha, :role)");
         $stmt->bindParam(':nome', $nome);
         $stmt->bindParam(':email', $email);
         $stmt->bindParam(':senha', $senha);
+        $stmt->bindParam(':role', $role);
+
         $stmt->execute();
 
-        echo "Sing in successfully!";
+        echo "<script>
+        alert('Sing-in Successfuly, please login!');
+        window.location.href = '../index.php';
+       </script>";
 
     }
 }

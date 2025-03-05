@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             header('Location: ../pages/administration/dashboard.php');
             
         }
-        elseif($usuario['role'] == 2){ //user      
+        elseif($usuario['role'] == 2){ //user_admin      
             header('Location: ../pages/noAuth/dashboard.php');
         }
         else{//== 0 nao ativo

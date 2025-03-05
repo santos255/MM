@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 03, 2025 at 04:36 PM
+-- Generation Time: Mar 05, 2025 at 01:37 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -40,9 +40,46 @@ CREATE TABLE `operator` (
 --
 
 INSERT INTO `operator` (`id_operator`, `name_operator`, `lastname_operator`, `email_operator`, `status_operator`) VALUES
-(1, 'operator 1', 'lastnameop1', 'op1@mm.com', 1),
-(2, 'operator 2', 'lastnameop2', 'op2@mm.com', 1),
-(4, 'op42', 'op4ls2', 'op24@mm', 0);
+(1, 'Op1', 'Op1Ss', 'op1s@mm.com', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `role`
+--
+
+CREATE TABLE `role` (
+  `id_role` int(11) NOT NULL,
+  `name_role` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `role`
+--
+
+INSERT INTO `role` (`id_role`, `name_role`) VALUES
+(1, 'admin'),
+(2, 'user_admin'),
+(3, 'user_view');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `status`
+--
+
+CREATE TABLE `status` (
+  `id_status` int(11) NOT NULL,
+  `name_status` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `status`
+--
+
+INSERT INTO `status` (`id_status`, `name_status`) VALUES
+(1, 'Desactive'),
+(2, 'Active');
 
 -- --------------------------------------------------------
 
@@ -53,9 +90,9 @@ INSERT INTO `operator` (`id_operator`, `name_operator`, `lastname_operator`, `em
 CREATE TABLE `usuarios` (
   `id_usuario` int(11) NOT NULL,
   `nome_usuario` varchar(100) NOT NULL,
-  `email_usuario` varchar(100) NOT NULL,
+  `email_usuario` varchar(250) NOT NULL,
   `senha_usuario` varchar(255) NOT NULL,
-  `stat` int(11) NOT NULL DEFAULT 0,
+  `role` int(11) NOT NULL,
   `data_cadastro_usuario` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -63,10 +100,8 @@ CREATE TABLE `usuarios` (
 -- Dumping data for table `usuarios`
 --
 
-INSERT INTO `usuarios` (`id_usuario`, `nome_usuario`, `email_usuario`, `senha_usuario`, `stat`, `data_cadastro_usuario`) VALUES
-(1, 'ivan', 'ivan@mm.com', '$2y$10$THi3sipuNSU.q9OWo64qdeDESK5KQae6zCGjuNG3K.b1vPpgWj4EO', 1, '2025-02-27 13:51:24'),
-(2, 'ivan2', 'ivan2@mm.com', '$2y$10$9lkWv.qEoRECvySMqiZ38eoYbmx4Pf4o9SOcG5IwE09aX8dbZSQNi', 2, '2025-02-27 14:12:01'),
-(3, 'ivan3', 'ivan3@mm.com', '$2y$10$v6SvG5u3bKBgl1p5emtL6ebT84M8Bk8dvtUlg9hVqrAeMVHBlVx96', 0, '2025-02-27 14:29:57');
+INSERT INTO `usuarios` (`id_usuario`, `nome_usuario`, `email_usuario`, `senha_usuario`, `role`, `data_cadastro_usuario`) VALUES
+(1, 'ivan1', 'ivan1@mm.com', '$2y$10$6zU3vIme1LtEU1Mt4vanzec.VjCnjALzKX4ozPBFaXx//BhKZAzDa', 2, '2025-03-05 12:31:43');
 
 --
 -- Indexes for dumped tables
@@ -76,14 +111,27 @@ INSERT INTO `usuarios` (`id_usuario`, `nome_usuario`, `email_usuario`, `senha_us
 -- Indexes for table `operator`
 --
 ALTER TABLE `operator`
-  ADD PRIMARY KEY (`id_operator`);
+  ADD PRIMARY KEY (`id_operator`),
+  ADD KEY `status_operator` (`status_operator`);
+
+--
+-- Indexes for table `role`
+--
+ALTER TABLE `role`
+  ADD PRIMARY KEY (`id_role`);
+
+--
+-- Indexes for table `status`
+--
+ALTER TABLE `status`
+  ADD PRIMARY KEY (`id_status`);
 
 --
 -- Indexes for table `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id_usuario`),
-  ADD UNIQUE KEY `email_usuario` (`email_usuario`);
+  ADD KEY `role` (`role`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -93,13 +141,41 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT for table `operator`
 --
 ALTER TABLE `operator`
-  MODIFY `id_operator` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_operator` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `role`
+--
+ALTER TABLE `role`
+  MODIFY `id_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `status`
+--
+ALTER TABLE `status`
+  MODIFY `id_status` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `operator`
+--
+ALTER TABLE `operator`
+  ADD CONSTRAINT `operator_ibfk_1` FOREIGN KEY (`status_operator`) REFERENCES `status` (`id_status`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Constraints for table `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`role`) REFERENCES `role` (`id_role`) ON DELETE NO ACTION ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
