@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 05, 2025 at 04:37 PM
+-- Generation Time: Mar 06, 2025 at 05:00 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -30,11 +30,18 @@ USE `formation`;
 --
 
 DROP TABLE IF EXISTS `category`;
-CREATE TABLE IF NOT EXISTS `category` (
-  `id_category` int(11) NOT NULL AUTO_INCREMENT,
-  `name_category` varchar(250) NOT NULL,
-  PRIMARY KEY (`id_category`)
+CREATE TABLE `category` (
+  `id_category` int(11) NOT NULL,
+  `name_category` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `category`
+--
+
+INSERT INTO `category` (`id_category`, `name_category`) VALUES
+(1, 'Security'),
+(2, 'Ongoing/Site-Specific');
 
 -- --------------------------------------------------------
 
@@ -43,13 +50,20 @@ CREATE TABLE IF NOT EXISTS `category` (
 --
 
 DROP TABLE IF EXISTS `formador`;
-CREATE TABLE IF NOT EXISTS `formador` (
-  `id_formador` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `formador` (
+  `id_formador` int(11) NOT NULL,
   `name_formador` varchar(100) NOT NULL,
   `telephone_formador` varchar(100) NOT NULL,
-  `email_formador` varchar(250) NOT NULL,
-  PRIMARY KEY (`id_formador`)
+  `email_formador` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `formador`
+--
+
+INSERT INTO `formador` (`id_formador`, `name_formador`, `telephone_formador`, `email_formador`) VALUES
+(1, 'internal UKG-LMS', '', ''),
+(2, 'EHS ou externe', '+326545464', 'ehsexternal@ehs.com');
 
 -- --------------------------------------------------------
 
@@ -58,20 +72,24 @@ CREATE TABLE IF NOT EXISTS `formador` (
 --
 
 DROP TABLE IF EXISTS `formation`;
-CREATE TABLE IF NOT EXISTS `formation` (
-  `id_formation` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `formation` (
+  `id_formation` int(11) NOT NULL,
   `name_formation` varchar(250) NOT NULL,
   `formator_formation` int(11) NOT NULL,
   `duration_in_h_formation` varchar(20) NOT NULL,
   `category_formation` int(11) NOT NULL,
   `post_conser_formation` int(11) NOT NULL,
   `type_formation` enum('Normal','Recyclage','','') NOT NULL DEFAULT 'Normal',
-  `comment_formation` longtext NOT NULL,
-  PRIMARY KEY (`id_formation`),
-  KEY `formator_formation` (`formator_formation`,`category_formation`,`post_conser_formation`),
-  KEY `category_formation` (`category_formation`),
-  KEY `post_conser_formation` (`post_conser_formation`)
+  `comment_formation` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `formation`
+--
+
+INSERT INTO `formation` (`id_formation`, `name_formation`, `formator_formation`, `duration_in_h_formation`, `category_formation`, `post_conser_formation`, `type_formation`, `comment_formation`) VALUES
+(1, 'Confined Space Entry - Awareness & Attendant', 2, '250', 1, 2, 'Normal', 'a confirmer'),
+(2, 'Confined Space Entry - Entrant', 1, '50', 2, 1, 'Recyclage', 'cherched');
 
 -- --------------------------------------------------------
 
@@ -80,15 +98,13 @@ CREATE TABLE IF NOT EXISTS `formation` (
 --
 
 DROP TABLE IF EXISTS `operator`;
-CREATE TABLE IF NOT EXISTS `operator` (
-  `id_operator` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `operator` (
+  `id_operator` int(11) NOT NULL,
   `name_operator` varchar(50) NOT NULL,
   `lastname_operator` varchar(50) NOT NULL,
   `email_operator` varchar(250) NOT NULL,
-  `status_operator` int(11) NOT NULL DEFAULT 1,
-  PRIMARY KEY (`id_operator`),
-  KEY `status_operator` (`status_operator`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `status_operator` int(11) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `operator`
@@ -106,11 +122,18 @@ INSERT INTO `operator` (`id_operator`, `name_operator`, `lastname_operator`, `em
 --
 
 DROP TABLE IF EXISTS `post`;
-CREATE TABLE IF NOT EXISTS `post` (
-  `id_post` int(11) NOT NULL AUTO_INCREMENT,
-  `name_post` varchar(100) NOT NULL,
-  PRIMARY KEY (`id_post`)
+CREATE TABLE `post` (
+  `id_post` int(11) NOT NULL,
+  `name_post` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `post`
+--
+
+INSERT INTO `post` (`id_post`, `name_post`) VALUES
+(1, 'Maintenance'),
+(2, 'Logistique');
 
 -- --------------------------------------------------------
 
@@ -119,11 +142,10 @@ CREATE TABLE IF NOT EXISTS `post` (
 --
 
 DROP TABLE IF EXISTS `role`;
-CREATE TABLE IF NOT EXISTS `role` (
-  `id_role` int(11) NOT NULL AUTO_INCREMENT,
-  `name_role` varchar(11) NOT NULL,
-  PRIMARY KEY (`id_role`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE `role` (
+  `id_role` int(11) NOT NULL,
+  `name_role` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `role`
@@ -141,11 +163,10 @@ INSERT INTO `role` (`id_role`, `name_role`) VALUES
 --
 
 DROP TABLE IF EXISTS `status`;
-CREATE TABLE IF NOT EXISTS `status` (
-  `id_status` int(11) NOT NULL AUTO_INCREMENT,
-  `name_status` varchar(11) NOT NULL,
-  PRIMARY KEY (`id_status`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE `status` (
+  `id_status` int(11) NOT NULL,
+  `name_status` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `status`
@@ -162,16 +183,14 @@ INSERT INTO `status` (`id_status`, `name_status`) VALUES
 --
 
 DROP TABLE IF EXISTS `usuarios`;
-CREATE TABLE IF NOT EXISTS `usuarios` (
-  `id_usuario` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `usuarios` (
+  `id_usuario` int(11) NOT NULL,
   `nome_usuario` varchar(100) NOT NULL,
   `email_usuario` varchar(250) NOT NULL,
   `senha_usuario` varchar(255) NOT NULL,
   `role` int(11) NOT NULL,
-  `data_cadastro_usuario` timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id_usuario`),
-  KEY `role` (`role`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `data_cadastro_usuario` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `usuarios`
@@ -179,6 +198,115 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
 
 INSERT INTO `usuarios` (`id_usuario`, `nome_usuario`, `email_usuario`, `senha_usuario`, `role`, `data_cadastro_usuario`) VALUES
 (1, 'ivan1', 'ivan1@mm.com', '$2y$10$6zU3vIme1LtEU1Mt4vanzec.VjCnjALzKX4ozPBFaXx//BhKZAzDa', 2, '2025-03-05 12:31:43');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `category`
+--
+ALTER TABLE `category`
+  ADD PRIMARY KEY (`id_category`);
+
+--
+-- Indexes for table `formador`
+--
+ALTER TABLE `formador`
+  ADD PRIMARY KEY (`id_formador`);
+
+--
+-- Indexes for table `formation`
+--
+ALTER TABLE `formation`
+  ADD PRIMARY KEY (`id_formation`),
+  ADD KEY `formator_formation` (`formator_formation`,`category_formation`,`post_conser_formation`),
+  ADD KEY `category_formation` (`category_formation`),
+  ADD KEY `post_conser_formation` (`post_conser_formation`);
+
+--
+-- Indexes for table `operator`
+--
+ALTER TABLE `operator`
+  ADD PRIMARY KEY (`id_operator`),
+  ADD KEY `status_operator` (`status_operator`);
+
+--
+-- Indexes for table `post`
+--
+ALTER TABLE `post`
+  ADD PRIMARY KEY (`id_post`);
+
+--
+-- Indexes for table `role`
+--
+ALTER TABLE `role`
+  ADD PRIMARY KEY (`id_role`);
+
+--
+-- Indexes for table `status`
+--
+ALTER TABLE `status`
+  ADD PRIMARY KEY (`id_status`);
+
+--
+-- Indexes for table `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`id_usuario`),
+  ADD KEY `role` (`role`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `category`
+--
+ALTER TABLE `category`
+  MODIFY `id_category` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `formador`
+--
+ALTER TABLE `formador`
+  MODIFY `id_formador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `formation`
+--
+ALTER TABLE `formation`
+  MODIFY `id_formation` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `operator`
+--
+ALTER TABLE `operator`
+  MODIFY `id_operator` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `post`
+--
+ALTER TABLE `post`
+  MODIFY `id_post` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `role`
+--
+ALTER TABLE `role`
+  MODIFY `id_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `status`
+--
+ALTER TABLE `status`
+  MODIFY `id_status` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
