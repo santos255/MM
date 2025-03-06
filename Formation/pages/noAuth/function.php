@@ -1,3 +1,13 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Usuário</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="container mt-4">
 <?php
 include '../../bd/conn.php';
 $variavel = $_GET['act'];
@@ -73,30 +83,8 @@ if ($variavel == 'creat') {
                 </script>";
             exit;
     }
-}elseif ($variavel == 'des') {
-    $id = $_GET['id'];
-    $stmt = $conn->prepare("UPDATE operator SET status_operator = 2 WHERE id_operator = ?");
-    $stmt->execute([$id]);
-    echo "<script>
-                  alert('Operator desactivated successfully!');
-                  window.location.href = 'dashboard.php?pag=operador.php';
-                 </script>";
-    exit;
-}
-
-?>
-<!DOCTYPE html>
-<html lang="pt-BR">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Editar Usuário</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-
-<body class="container mt-4">
-
-    <h2>Editar Usuário</h2>
+    ?>
+        <h2>Editar Usuário</h2>
     <form method="POST">
         <div class="mb-3">
             <label>Name</label>
@@ -122,3 +110,17 @@ if ($variavel == 'creat') {
         <button type="submit" class="btn btn-primary">Atualizar</button>
         <a href="dashboard.php?pag=operador.php" class="btn btn-secondary">Voltar</a>
     </form>
+<?php
+}elseif ($variavel == 'des') {
+    $id = $_GET['id'];
+    $stmt = $conn->prepare("UPDATE operator SET status_operator = 2 WHERE id_operator = ?");
+    $stmt->execute([$id]);
+    echo "<script>
+                  alert('Operator desactivated successfully!');
+                  window.location.href = 'dashboard.php?pag=operador.php';
+                 </script>";
+    exit;
+}
+
+
+?>
