@@ -29,7 +29,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         exit;
     } else {
-        echo "Email ou senha incorretos!";
+        echo "<script>
+        alert('Username or password incorrect!');
+        window.location.href = '../index.php';
+       </script>";
+        exit; // Impede que o PHP continue processando
     }
 }
 ?>

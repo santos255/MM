@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `formador` (
 DROP TABLE IF EXISTS `formation`;
 CREATE TABLE IF NOT EXISTS `formation` (
   `id_formation` int(11) NOT NULL AUTO_INCREMENT,
-  `name_formation` int(250) NOT NULL,
+  `name_formation` varchar(250) NOT NULL,
   `formator_formation` int(11) NOT NULL,
   `duration_in_h_formation` varchar(20) NOT NULL,
   `category_formation` int(11) NOT NULL,
